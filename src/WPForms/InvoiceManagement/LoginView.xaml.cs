@@ -28,6 +28,29 @@ namespace InvoiceManagement
         public void OnLoginButtonClicked(object sender, EventArgs e)
         {
             string passwordEntered = PasswordBox.Password;
+
+            string? envPW = Environment.GetEnvironmentVariable("InvoiceManagement");
+
+            if (envPW != null)
+            {
+                if (passwordEntered == envPW)
+                {
+                    MessageBox.Show("Entered correct password");
+                }
+                else
+                {
+                    MessageBox.Show("Entered wrong password");
+                }
+            } 
+            else
+            {
+                MessageBox.Show("Environment variable not found");
+            }
+        }
+
+        public void OnPasswordChanged(object sender, EventArgs e)
+        {
+            LoginButton.IsEnabled = !string.IsNullOrEmpty(PasswordBox.Password);
         }
     }
 }
